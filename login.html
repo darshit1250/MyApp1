@@ -1,0 +1,133 @@
+<html>
+<head>
+	<title>
+		Login!!!
+	</title>
+	
+	<script src="jquery-3.1.0.js"></script>
+	
+	<script>
+	var location1 = Math.floor(Math.random() * 5);
+	var location2 = (location1 + Math.floor(Math.random() * 5)) % 6;
+	var location3 = (location1 + Math.floor(Math.random() * 5)) % 6;
+	
+	
+	while(location1 == location2 || location3 == location1 || location3 == location2){
+		 location2 = (location1 + Math.floor(Math.random() * 5)) % 6;
+		 location3 = (location1 + Math.floor(Math.random() * 5)) % 6;
+	}
+	
+//	alert("location1 "+location1);
+//	alert("location2 "+location2);
+//	alert("location3 "+location3);
+	
+	var guess;
+	var hits = 0;
+	var guesses = 0;
+	var guessIf = [];
+	var isSunk = false;
+	var repeated = false;
+	
+	
+	
+	function battleship(userGuess){
+//	while(isSunk == false){
+		
+		//guess = prompt("Ready ,aim, Fire!(enter position number between 0 to 6)");
+		guess = userGuess;
+	//	if(guess < 0 || guess > 6){
+	//		alert("Enter valid Position !!");
+	//		continue;
+	//	}
+	//	else{
+			guesses = guesses + 1;
+			
+	//	}
+		
+		for(i = 0 ; i < guessIf.length ; i++){
+			if(guess == guessIf[i]){
+				alert("You have already HIT this out...try something new..");
+				repeated = true;
+				break;
+			}
+		}
+		if(repeated == false){
+		if(guess == location1 || guess == location2 || guess == location3){
+		
+			guessIf[guessIf.length] = guess;
+			document.getElementById(guess).innerHTML = '<img src=\"battleship.jpg\" style=\"width:50px; height:50px;\"/>'+' <audio controls autoplay style=\" display:none;\">'+ '  <source src=\"shotgun.mp3\" type=\"audio/mp3\"> </audio>';
+			alert("Hit..!!");
+			hits = hits + 1;
+		
+			if(hits == 3){
+				isSunk = true;
+				alert("You sank my BattleShip..");
+				document.getElementById("flash").innerHTML = ' <h1 id=\"flashingtext\"> You Won This Battle ..:) </h1> ';
+				var states = "You took " + guesses + " guesses to sink the BattleShip, " + "which means ur shooting accuracy was " + (3/guesses);
+				setTimeout(function() { alert(states); }, 2000); 
+				
+			}
+		}
+		else{
+			
+			document.getElementById(guess).innerHTML = '<img src=\"miss.png\" style=\"width:50px; height:50px;\"/>'+' <audio controls autoplay style=\" display:none;\">'+ '  <source src=\"missedIt.mp3\" type=\"audio/mp3\"> </audio>';
+			//document.getElementById(guess).style.color = "red";
+			alert("Miss... :(");
+		}
+		
+		}
+		
+		repeated = false;
+//	}
+	
+	
+	
+	}
+	
+	
+	
+/*	 function flashtext(ele,col) {
+    var tmpColCheck = document.getElementById( ele ).style.color;
+
+      if (tmpColCheck === 'yellow') {
+        document.getElementById( ele ).style.color = col;
+      } else {
+        document.getElementById( ele ).style.color = 'yellow';
+      }
+	  return;
+    } 
+
+    setInterval(function() {
+		
+        flashtext('flashingtext','red');
+        flashtext('flashingtext','blue');
+        flashtext('flashingtext','green');
+    }, 500 ); */
+	</script>
+	
+</head>
+<body>
+	<center>
+	<h2> Play BattleShip </h2>
+<!--	<button onclick="battleship()"> Play The Game..!! </button> -->
+	<table border="1" style=" border-color: blue; border-style: solid;">
+		<tr>
+			<td id="0"> <img src="water.jpg" style="width:50px; height:50px;" onclick="battleship(0)"> </td>
+			<td id="1"> <img src="water.jpg" style="width:50px; height:50px;" onclick="battleship(1)"> </td>
+			<td id="2"> <img src="water.jpg" style="width:50px; height:50px;" onclick="battleship(2)"> </td>
+			<td id="3"> <img src="water.jpg" style="width:50px; height:50px;" onclick="battleship(3)"> </td>
+			<td id="4"> <img src="water.jpg" style="width:50px; height:50px;" onclick="battleship(4)"> </td>
+			<td id="5"> <img src="water.jpg" style="width:50px; height:50px;" onclick="battleship(5)"> </td>
+			<td id="6"> <img src="water.jpg" style="width:50px; height:50px;" onclick="battleship(6)"> </td>
+		</tr>
+	</table>
+	
+	
+	
+	<div id="flash">
+	
+	</div>
+	
+	</center>
+</body>
+</html>
